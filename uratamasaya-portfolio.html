@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>浦田昌矢 — ライティングポートフォリオ</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #111111;
+      --dark:   #1e1e1e;
+      --mid:    #444444;
+      --gray:   #777777;
+      --border: #e2e2e2;
+      --bg:     #fafafa;
+      --white:  #ffffff;
+      --green:  #2563eb;
+      --green-light: #eff6ff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial,
+        'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      background: var(--white);
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    /* ─── Nav ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--black);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 96px 24px 80px;
+    }
+    .hero-inner { max-width: 860px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #93c5fd;
+      background: rgba(149,213,178,0.12);
+      border: 1px solid rgba(149,213,178,0.3);
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.25;
+      color: var(--white);
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: #93c5fd;
+    }
+    .hero-lead {
+      font-size: 0.95rem;
+      color: #aaa;
+      max-width: 520px;
+      line-height: 2;
+      margin-bottom: 40px;
+    }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      padding: 5px 14px;
+      border: 1px solid #333;
+      color: #888;
+      border-radius: 20px;
+    }
+
+    /* ─── Section base ─── */
+    .section { padding: 88px 24px; }
+    .section-inner { max-width: 860px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--black);
+      margin-bottom: 48px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.03em;
+    }
+
+    /* ─── Profile ─── */
+    .profile { background: var(--bg); }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .profile-text p { font-size: 0.93rem; margin-bottom: 16px; line-height: 2; }
+    .profile-text strong { color: var(--black); }
+
+    .spec-list { list-style: none; }
+    .spec-list li {
+      display: flex;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .spec-list li:last-child { border-bottom: none; }
+    .spec-key {
+      width: 100px;
+      flex-shrink: 0;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      padding-top: 2px;
+    }
+    .spec-val { color: var(--mid); line-height: 1.6; }
+
+    /* ─── Strengths ─── */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .strength-card {
+      background: var(--bg);
+      padding: 36px 28px;
+    }
+    .strength-icon {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    .strength-card h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+    .strength-card p { font-size: 0.83rem; color: var(--gray); line-height: 1.8; }
+
+    /* ─── Works ─── */
+    .works { background: var(--bg); }
+    .article-list { display: flex; flex-direction: column; gap: 32px; }
+
+    .article-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .article-card:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      border-color: #c8e6d4;
+    }
+
+    .article-inner { padding: 32px 36px 28px; }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .article-badge {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+    .article-date { font-size: 0.72rem; color: #bbb; }
+
+    .article-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.5;
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+    .article-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .article-title a:hover { color: var(--green); }
+
+    .article-summary {
+      font-size: 0.85rem;
+      color: var(--gray);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .excerpt {
+      background: var(--bg);
+      border-left: 3px solid var(--green);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .excerpt-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .excerpt-text {
+      font-size: 0.83rem;
+      color: var(--mid);
+      line-height: 2;
+      white-space: pre-line;
+    }
+
+    .article-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .article-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .article-tag {
+      font-size: 0.68rem;
+      color: var(--gray);
+      border: 1px solid var(--border);
+      padding: 2px 10px;
+      border-radius: 20px;
+    }
+    .article-link {
+      font-size: 0.75rem;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      margin-left: 16px;
+    }
+    .article-link:hover { text-decoration: underline; }
+
+    /* ─── Service ─── */
+    .service-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .service-table th {
+      text-align: left;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 10px 16px;
+      border-bottom: 2px solid var(--border);
+      background: var(--bg);
+    }
+    .service-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--mid);
+      line-height: 1.6;
+    }
+    .service-table tr:last-child td { border-bottom: none; }
+    .service-table td:first-child { font-weight: 600; color: var(--black); }
+    .service-note {
+      margin-top: 18px;
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    /* ─── Contact ─── */
+    .contact { background: var(--black); text-align: center; }
+    .contact .section-title { color: var(--white); border-bottom-color: #282828; }
+    .contact-lead {
+      font-size: 0.92rem;
+      color: #888;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 2;
+    }
+    .contact-btn {
+      display: inline-block;
+      padding: 15px 52px;
+      background: var(--green);
+      color: var(--white);
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+    .contact-btn:hover { opacity: 0.85; }
+    .contact-sub {
+      margin-top: 24px;
+      font-size: 0.76rem;
+      color: #444;
+    }
+    .contact-sub a { color: #666; text-decoration: none; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: #0a0a0a;
+      color: #333;
+      padding: 24px;
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 680px) {
+      .profile-grid { grid-template-columns: 1fr; gap: 40px; }
+      .strengths-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .article-inner { padding: 24px 20px 20px; }
+      .hero { padding: 72px 24px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-wrap">
+    <a href="#" class="nav-name">AI × SEOライター</a>
+    <ul class="nav-links">
+      <li><a href="#profile">プロフィール</a></li>
+      <li><a href="#strengths">強み</a></li>
+      <li><a href="#works">執筆実績</a></li>
+      <li><a href="#service">対応内容</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">Content Writer</span>
+    <h1>読んだ人が、<em>動く</em>記事を書く。</h1>
+    <p class="hero-lead">
+      ビジネスパーソン向けの健康・ダイエット分野を専門とするWebライター。
+      AIを活用した高速・低コスト納品と、ターゲット心理に基づいた
+      コンテンツ設計で、読者を行動へ導く記事を届けます。
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">SEO記事・ブログ</span>
+      <span class="hero-tag">健康・ダイエット</span>
+      <span class="hero-tag">ビジネスパーソン向け</span>
+      <span class="hero-tag">AI活用ライティング</span>
+      <span class="hero-tag">高速納品</span>
+    </div>
+  </div>
+</section>
+
+<!-- Profile -->
+<section class="section profile" id="profile">
+  <div class="section-inner">
+    <p class="section-label">Profile</p>
+    <h2 class="section-title">プロフィール</h2>
+    <div class="profile-grid">
+      <div class="profile-text">
+        <p>
+          はじめまして、<strong>浦田昌矢</strong>と申します。
+          福岡県在住・31歳。<strong>フリーランス3年目</strong>として、
+          SNS運用とWebライティングを専門に活動しています。
+        </p>
+        <p>
+          ライティングではビジネスパーソン向けの<strong>健康・ダイエット分野</strong>を得意としており、
+          「管理職が体型で評価を落とす」「続かないダイエットの構造」など、
+          ビジネスマンが抱えるリアルな悩みを起点に、
+          読者が「明日から動ける」情報を届けることを大切にしています。
+        </p>
+        <p>
+          執筆にはAIツールを積極的に活用し、<strong>高速・低コストな納品</strong>を実現。
+          SEO記事の執筆はもちろん、キーワードリサーチ・構成作成・リライトまで
+          ワンストップで対応できます。
+        </p>
+        <p>
+          単に情報をまとめるだけでなく、<strong>読んだ人が行動に移せる文章</strong>を目指して
+          日々執筆しています。お気軽にご相談ください。
+        </p>
+      </div>
+      <ul class="spec-list">
+        <li>
+          <span class="spec-key">Name</span>
+          <span class="spec-val">浦田 昌矢（31歳）</span>
+        </li>
+        <li>
+          <span class="spec-key">拠点</span>
+          <span class="spec-val">福岡県（フルリモート対応）</span>
+        </li>
+        <li>
+          <span class="spec-key">経験</span>
+          <span class="spec-val">フリーランス3年目 / SNS運用・Webライティング</span>
+        </li>
+        <li>
+          <span class="spec-key">得意ジャンル</span>
+          <span class="spec-val">健康・ダイエット・ビジネス</span>
+        </li>
+        <li>
+          <span class="spec-key">対応媒体</span>
+          <span class="spec-val">ブログ / SEO記事 / note / コラム</span>
+        </li>
+        <li>
+          <span class="spec-key">文字数</span>
+          <span class="spec-val">2,000〜10,000字に対応</span>
+        </li>
+        <li>
+          <span class="spec-key">納期目安</span>
+          <span class="spec-val">〜3,000字：2営業日<br>〜6,000字：3〜4営業日</span>
+        </li>
+        <li>
+          <span class="spec-key">note</span>
+          <span class="spec-val"><a href="https://note.com/ura_nomore_diet" target="_blank" style="color:var(--green)">@ura_nomore_diet</a></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Strengths -->
+<section class="section" id="strengths">
+  <div class="section-inner">
+    <p class="section-label">Strengths</p>
+    <h2 class="section-title">3つの強み</h2>
+    <div class="strengths-grid">
+      <div class="strength-card">
+        <div class="strength-icon">⚡</div>
+        <h3>AI活用で高速・低コスト納品</h3>
+        <p>
+          リサーチ・構成・執筆・推敲にAIを組み込んだ制作フローを確立。
+          品質を落とさずに短納期・低単価でのご依頼に対応します。
+        </p>
+      </div>
+      <div class="strength-card">
+        <div class="strength-icon">🎯</div>
+        <h3>ターゲット心理から逆算した構成</h3>
+        <p>
+          読者が「自分ごと」として読み進める構成を設計。
+          共感・問題提起・解決策・行動促進の流れを一記事に
+          凝縮し、離脱を防ぐ文章を作ります。
+        </p>
+      </div>
+      <div class="strength-card">
+        <div class="strength-icon">🏢</div>
+        <h3>ビジネスパーソン向け分野に特化</h3>
+        <p>
+          管理職・忙しいビジネスマンの悩みを
+          深く理解した執筆が可能。専門性の高い読者にも
+          「わかる」と思わせる文章を届けます。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Works -->
+<section class="section works" id="works">
+  <div class="section-inner">
+    <p class="section-label">Works</p>
+    <h2 class="section-title">執筆実績</h2>
+    <div class="article-list">
+
+      <!-- Article 1 -->
+      <div class="article-card">
+        <div class="article-inner">
+          <div class="article-meta">
+            <span class="article-badge">健康・ライフスタイル</span>
+            <span class="article-date">2026</span>
+          </div>
+          <h3 class="article-title">
+            <a href="https://note.com/ura_nomore_diet/n/n076096c9cf73" target="_blank">
+              1日10分。忙しい管理職が、移動・会議・昼休みだけで体型を変えた実例
+            </a>
+          </h3>
+          <p class="article-summary">
+            「時間がない」を言い訳にしない体型改善の設計を提案した記事。
+            移動・会議・昼休みという既存の時間を再設計する「隙間の積み上げ」アプローチを、
+            実際の行動ベースで具体的に解説。完璧な計画より続く仕組みの重要性を伝えた。
+          </p>
+          <div class="excerpt">
+            <p class="excerpt-label">本文より抜粋</p>
+            <p class="excerpt-text">「時間がない」は言い訳ではなく正しい認識である。
+忙しい営業部長は構造的に自由な時間を確保しにくく、
+「まとまった時間を作って運動する」という設計は向いていない。
+
+続かない完璧な計画より、続く小さな設計の方が現実の体型を変える。
+まとまった時間を待つ必要はない。今日の移動から、設計を変えられる。</p>
+          </div>
+          <div class="article-footer">
+            <div class="article-tags">
+              <span class="article-tag">習慣化</span>
+              <span class="article-tag">時間管理</span>
+              <span class="article-tag">ビジネスマン</span>
+              <span class="article-tag">体型改善</span>
+            </div>
+            <a href="https://note.com/ura_nomore_diet/n/n076096c9cf73" target="_blank" class="article-link">記事を読む →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="article-card">
+        <div class="article-inner">
+          <div class="article-meta">
+            <span class="article-badge">ダイエット・習慣</span>
+            <span class="article-date">2026</span>
+          </div>
+          <h3 class="article-title">
+            <a href="https://note.com/ura_nomore_diet/n/nf7e61b3195ec" target="_blank">
+              「今月からダイエット頑張ろう」が毎月続く人の共通点
+            </a>
+          </h3>
+          <p class="article-summary">
+            毎月繰り返される「決意→挫折」のループを、意志力ではなく仕組みの問題として構造分析した記事。
+            「中断しても終わらない設計」という概念を軸に、継続できる人とできない人の根本的な違いを解説。
+            読了後すぐ実践できる1週間の行動設計も提示した。
+          </p>
+          <div class="excerpt">
+            <p class="excerpt-label">本文より抜粋</p>
+            <p class="excerpt-text">決意が繰り返される構造は、意志の弱さではなく仕組みの問題だ。
+危機感から決意が生まれ、最初は動けても、仕事や接待で中断。
+自責感が積み重なり「また来月から」と先送りされるサイクルが回り続ける。
+
+「来月から頑張ろう」ではなく、「今日から、小さく」。
+それだけが、このサイクルから抜け出す唯一の入口だ。</p>
+          </div>
+          <div class="article-footer">
+            <div class="article-tags">
+              <span class="article-tag">習慣化</span>
+              <span class="article-tag">継続設計</span>
+              <span class="article-tag">行動変容</span>
+              <span class="article-tag">ダイエット</span>
+            </div>
+            <a href="https://note.com/ura_nomore_diet/n/nf7e61b3195ec" target="_blank" class="article-link">記事を読む →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="article-card">
+        <div class="article-inner">
+          <div class="article-meta">
+            <span class="article-badge">ビジネス・リーダーシップ</span>
+            <span class="article-date">2026</span>
+          </div>
+          <h3 class="article-title">
+            <a href="https://note.com/ura_nomore_diet/n/n3e0832358d09" target="_blank">
+              若い部下と会議室に並ぶとき、あなたの体型は「管理職の説得力」を削っていないか
+            </a>
+          </h3>
+          <p class="article-summary">
+            外見と管理職としての説得力の関係を、感情論ではなくビジネスロジックで解説した記事。
+            「言っていることと見えていることの乖離」という切り口で、
+            体型管理をプレゼン資料と同じ「ビジネスツール」として捉え直す視点を提供した。
+          </p>
+          <div class="excerpt">
+            <p class="excerpt-label">本文より抜粋</p>
+            <p class="excerpt-text">部下は上司の言葉と外見を同時に受け取っている。
+「自己管理できている人間」の言葉は外見が裏付けるため強度がある。
+一方、外見に自己管理が出ていない人間の言葉は、
+内容が正しくても言葉だけが宙に浮くようになる。
+
+これは「体型を整えろ」という話ではない。
+プレゼン資料の品質を気にするのと同じ発想で、
+自分の外見が発しているシグナルを把握することだ。</p>
+          </div>
+          <div class="article-footer">
+            <div class="article-tags">
+              <span class="article-tag">管理職</span>
+              <span class="article-tag">リーダーシップ</span>
+              <span class="article-tag">外見戦略</span>
+              <span class="article-tag">ビジネス</span>
+            </div>
+            <a href="https://note.com/ura_nomore_diet/n/n3e0832358d09" target="_blank" class="article-link">記事を読む →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Service -->
+<section class="section" id="service">
+  <div class="section-inner">
+    <p class="section-label">Service</p>
+    <h2 class="section-title">対応内容・納期目安</h2>
+    <table class="service-table">
+      <thead>
+        <tr>
+          <th>制作物</th>
+          <th>文字数目安</th>
+          <th>納期目安</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>SEOブログ記事（短め）</td>
+          <td>2,000〜3,000字</td>
+          <td>2営業日</td>
+          <td>キーワード指定に対応</td>
+        </tr>
+        <tr>
+          <td>SEOブログ記事（標準）</td>
+          <td>3,000〜6,000字</td>
+          <td>3〜4営業日</td>
+          <td>見出し構成案もご提案可</td>
+        </tr>
+        <tr>
+          <td>SEOブログ記事（ロング）</td>
+          <td>6,000〜10,000字</td>
+          <td>5〜7営業日</td>
+          <td>事前ヒアリングあり</td>
+        </tr>
+        <tr>
+          <td>コラム・エッセイ</td>
+          <td>1,000〜3,000字</td>
+          <td>1〜2営業日</td>
+          <td>読み物系コンテンツ</td>
+        </tr>
+        <tr>
+          <td>構成作成</td>
+          <td>—</td>
+          <td>1〜2営業日</td>
+          <td>見出し・骨子のみの納品も可</td>
+        </tr>
+        <tr>
+          <td>キーワードリサーチ</td>
+          <td>—</td>
+          <td>1〜2営業日</td>
+          <td>ターゲットキーワード候補をリスト化</td>
+        </tr>
+        <tr>
+          <td>リライト・ブラッシュアップ</td>
+          <td>制限なし</td>
+          <td>応相談</td>
+          <td>既存記事の品質改善・SEO強化</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="service-note">
+      ※ 急ぎの案件はご相談ください。追加料金なしで対応できる場合があります。<br>
+      ※ 継続発注の場合、月間スケジュールを組んで安定稼働できます。
+    </p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section contact" id="contact">
+  <div class="section-inner">
+    <p class="section-label" style="color:#93c5fd;">Contact</p>
+    <h2 class="section-title">お仕事のご依頼</h2>
+    <p class="contact-lead">
+      執筆のご依頼・ご相談はメールにてお気軽にどうぞ。
+      まず案件の概要（ジャンル・文字数・本数・納期）を
+      送っていただければ、2営業日以内にご返信します。
+    </p>
+    <a href="mailto:urururtr@gmail.com" class="contact-btn">メールで相談する</a>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 浦田昌矢 — All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
