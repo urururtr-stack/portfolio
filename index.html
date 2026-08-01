@@ -337,6 +337,34 @@
       transition: opacity 0.2s;
     }
     .contact-btn:hover { opacity: 0.85; }
+    .contact-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+    .contact-btn.secondary {
+      background: transparent;
+      border: 1px solid #06c755;
+      color: #06c755;
+    }
+    .contact-btn.secondary:hover { opacity: 0.85; background: rgba(6,199,85,0.08); }
+    .contact-qr {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-qr img {
+      background: var(--white);
+      padding: 10px;
+      border-radius: 4px;
+    }
+    .contact-qr-label {
+      font-size: 0.74rem;
+      color: #666;
+    }
     .contact-sub {
       margin-top: 24px;
       font-size: 0.76rem;
@@ -747,11 +775,18 @@
     <p class="section-label" style="color:#93c5fd;">Contact</p>
     <h2 class="section-title">お仕事のご依頼</h2>
     <p class="contact-lead">
-      執筆のご依頼・ご相談はメールにてお気軽にどうぞ。
+      執筆のご依頼・ご相談はメールまたはLINE公式アカウントにてお気軽にどうぞ。
       まず案件の概要（ジャンル・文字数・本数・納期）を
       送っていただければ、2営業日以内にご返信します。
     </p>
-    <a href="mailto:urururtr@gmail.com" class="contact-btn">メールで相談する</a>
+    <div class="contact-btn-row">
+      <a href="mailto:urururtr@gmail.com" class="contact-btn">メールで相談する</a>
+      <a href="https://lin.ee/XuYF5aD" target="_blank" class="contact-btn secondary">LINEで相談する</a>
+    </div>
+    <div class="contact-qr">
+      <img src="line-qr.png" alt="LINE公式アカウント QRコード" width="120" height="120">
+      <p class="contact-qr-label">QRコードからも友だち追加できます</p>
+    </div>
   </div>
 </section>
 
